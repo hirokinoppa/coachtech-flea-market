@@ -1,0 +1,224 @@
+/* =========================
+App Common (After Login) - COMPLETE
+縮小しても「ロゴ / 検索 / ナビ」を1行横並び維持
+検索がロゴに“被らない”ように修正済み
+========================= */
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-header: #000000;
+
+  --color-border: #bdbdbd;
+  --color-border-focus: #666666;
+
+  --radius-sm: 4px;
+
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-16: 64px;
+
+  --header-height: 64px;
+
+  --container-max: 1540px;
+
+  /* ★検索の最大幅（最大化しても伸びすぎない） */
+  --search-max: 520px;
+
+  --font-base: 16px;
+}
+
+/* Base */
+.app-page {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP",
+    "Yu Gothic", "Meiryo", sans-serif;
+}
+
+/* Header */
+.site-header {
+  height: var(--header-height);
+  background: var(--color-header);
+}
+
+.site-header__inner {
+  height: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+
+  /* ★重要：中央列を minmax(0, 1fr) にする（被り防止） */
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content;
+  align-items: center;
+  column-gap: var(--space-6);
+}
+
+/* Logo */
+.site-header__logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-header__logo {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+
+/* Search */
+.site-header__search {
+  /* ★中央列の中で「最大幅だけ持つ」＝はみ出さない */
+  width: 100%;
+  max-width: var(--search-max);
+  justify-self: center;
+
+  display: flex;
+  align-items: center;
+
+  /* ★Grid内で潰れ/はみ出しを防ぐ */
+  min-width: 0;
+}
+
+.site-header__search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.site-header__search-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid #ffffff;
+  outline: none;
+  background: #ffffff;
+  box-sizing: border-box;
+
+  /* ★これがないと縮小時に中身がはみ出すことがある */
+  min-width: 0;
+}
+
+/* Nav */
+.site-header__nav {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  white-space: nowrap;
+  flex-wrap: nowrap; /* ★折り返さない */
+}
+
+.site-header__nav-item {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.site-header__nav-link {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  font-size: var(--font-base);
+  cursor: pointer;
+  text-decoration: none;
+  padding: var(--space-2) var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.site-header__nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: #111111;
+  text-decoration: none;
+  font-weight: 700;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+/* Main */
+.app-main {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+}
+
+/* =========================
+Responsive（検索は消さない。縮めて被り/見切れを防ぐ）
+========================= */
+@media (max-width: 1100px) {
+  :root { --search-max: 440px; }
+
+  .site-header__inner {
+    padding: 0 var(--space-4);
+    column-gap: var(--space-4);
+  }
+
+  .site-header__nav {
+    gap: var(--space-2);
+  }
+
+  .site-header__nav-link {
+    font-size: 14px;
+    padding: 6px 6px;
+  }
+
+  .site-header__nav-button {
+    height: 34px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  :root { --search-max: 320px; }
+
+  .site-header__inner {
+    padding: 0 12px;
+    column-gap: 10px;
+  }
+
+  .site-header__logo {
+    height: 22px; /* 少し小さくして被り余裕を作る */
+  }
+
+  .site-header__search-input {
+    height: 38px;
+    padding: 0 12px;
+  }
+
+  .site-header__nav-link {
+    font-size: 13px;
+    padding: 6px 4px;
+  }
+
+  .site-header__nav-button {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: var(--space-10) var(--space-4) var(--space-16);
+  }
+}
