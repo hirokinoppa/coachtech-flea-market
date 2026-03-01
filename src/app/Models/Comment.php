@@ -12,7 +12,7 @@ class Comment extends Model
 
     protected $fillable = [
         'user_id',
-        'good_id',
+        'item_id',
         'body',
     ];
 
@@ -21,8 +21,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function good(): BelongsTo
+    public function item(): BelongsTo
     {
-        return $this->belongsTo(Good::class);
+        return $this->belongsTo(Item::class);
     }
 }

@@ -1,0 +1,113 @@
+:root{
+  --verify-max: 720px;
+  --verify-pad-x: 16px;
+
+  --verify-text: #111;
+  --verify-ok: #1a7f37;
+  --verify-link: #1e6bd6;
+
+  --verify-btn-bg: #d9d9d9;
+  --verify-btn-border: #7a7a7a;
+
+  --verify-radius: 6px;
+}
+
+/* Base */
+.verify-email{
+  width: 100%;
+  max-width: var(--verify-max);
+  margin: 0 auto;
+  padding: 80px var(--verify-pad-x) 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.verify-email__flash{
+  margin: 0 0 18px;
+  color: var(--verify-ok);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.verify-email__text{
+  margin: 0 0 28px;
+  color: var(--verify-text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+  word-break: break-word;
+}
+
+/* Button */
+.verify-email__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 220px;
+  height: 44px;
+  padding: 0 18px;
+
+  background: var(--verify-btn-bg);
+  color: var(--verify-text);
+  text-decoration: none;
+
+  border: 1px solid var(--verify-btn-border);
+  border-radius: var(--verify-radius);
+
+  font-weight: 800;
+  box-sizing: border-box;
+}
+
+.verify-email__btn:hover{
+  filter: brightness(0.98);
+}
+
+/* Resend */
+.verify-email__resend{
+  margin-top: 22px;
+}
+
+.verify-email__link{
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  color: var(--verify-link);
+  text-decoration: underline;
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (min-width: 768px) and (max-width: 850px){
+  .verify-email{
+    max-width: 680px;
+    padding-top: 72px;
+  }
+
+  .verify-email__btn{
+    min-width: 240px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 520px){
+  .verify-email{
+    padding-top: 56px;
+  }
+
+  .verify-email__text{
+    margin-bottom: 22px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .verify-email__btn{
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+  }
+}

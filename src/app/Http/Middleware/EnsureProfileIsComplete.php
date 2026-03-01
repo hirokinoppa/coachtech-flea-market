@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EnsureProfileIsComplete
 {
@@ -15,19 +16,25 @@ class EnsureProfileIsComplete
             return $next($request);
         }
 
-        $isComplete =
-            !empty($user->name) &&
-            !empty($user->postal_code) &&
-            !empty($user->address);
+        $profile = $user->profile;
 
-        $isProfileRoute =
-            $request->routeIs('profile.edit') ||
-            $request->routeIs('mypage.update') ||
-            $request->routeIs('logout');
+        $isComplete =
+            $profile &&
+            !empty($profile->name) &&
+            !empty($profile->postal_code) &&
+            !empty($profile->address);
+
+        $isProfileRoute = false;
+        if ($request->route()) {
+            $isProfileRoute =
+                $request->routeIs('profile.edit') ||
+                $request->routeIs('profile.update') ||
+                $request->routeIs('logout');
+        }
 
         if (!$isComplete && !$isProfileRoute) {
             if (!$request->session()->has('url.intended')) {
-                $request->session()->put('url.intended', $request->fullUrl());
+                Redirect::setIntendedUrl($request->fullUrl());
             }
 
             return redirect()->route('profile.edit');

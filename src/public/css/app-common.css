@@ -1,36 +1,22 @@
-/* =========================
-App Common (After Login) - COMPLETE
-縮小しても「ロゴ / 検索 / ナビ」を1行横並び維持
-検索がロゴに“被らない”ように修正済み
-========================= */
 
 :root {
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-header: #000000;
-
   --color-border: #bdbdbd;
   --color-border-focus: #666666;
-
   --radius-sm: 4px;
-
   --space-2: 8px;
   --space-4: 16px;
   --space-6: 24px;
   --space-10: 40px;
   --space-16: 64px;
-
   --header-height: 64px;
-
   --container-max: 1540px;
-
-  /* ★検索の最大幅（最大化しても伸びすぎない） */
   --search-max: 520px;
-
   --font-base: 16px;
 }
 
-/* Base */
 .app-page {
   margin: 0;
   min-height: 100vh;
@@ -41,7 +27,6 @@ App Common (After Login) - COMPLETE
     "Yu Gothic", "Meiryo", sans-serif;
 }
 
-/* Header */
 .site-header {
   height: var(--header-height);
   background: var(--color-header);
@@ -52,15 +37,12 @@ App Common (After Login) - COMPLETE
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-6);
-
-  /* ★重要：中央列を minmax(0, 1fr) にする（被り防止） */
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr) max-content;
   align-items: center;
   column-gap: var(--space-6);
 }
 
-/* Logo */
 .site-header__logo-link {
   display: inline-flex;
   align-items: center;
@@ -73,18 +55,14 @@ App Common (After Login) - COMPLETE
   display: block;
 }
 
-/* Search */
 .site-header__search {
-  /* ★中央列の中で「最大幅だけ持つ」＝はみ出さない */
   width: 100%;
   max-width: var(--search-max);
   justify-self: center;
-
   display: flex;
   align-items: center;
-
-  /* ★Grid内で潰れ/はみ出しを防ぐ */
   min-width: 0;
+  position: relative;
 }
 
 .site-header__search-label {
@@ -105,19 +83,16 @@ App Common (After Login) - COMPLETE
   outline: none;
   background: #ffffff;
   box-sizing: border-box;
-
-  /* ★これがないと縮小時に中身がはみ出すことがある */
   min-width: 0;
 }
 
-/* Nav */
 .site-header__nav {
   justify-self: end;
   display: flex;
   align-items: center;
   gap: var(--space-4);
   white-space: nowrap;
-  flex-wrap: nowrap; /* ★折り返さない */
+  flex-wrap: nowrap;
 }
 
 .site-header__nav-item {
@@ -154,16 +129,12 @@ App Common (After Login) - COMPLETE
   line-height: 1;
 }
 
-/* Main */
 .app-main {
   max-width: var(--container-max);
   margin: 0 auto;
   padding: var(--space-16) var(--space-6);
 }
 
-/* =========================
-Responsive（検索は消さない。縮めて被り/見切れを防ぐ）
-========================= */
 @media (max-width: 1100px) {
   :root { --search-max: 440px; }
 
@@ -197,7 +168,7 @@ Responsive（検索は消さない。縮めて被り/見切れを防ぐ）
   }
 
   .site-header__logo {
-    height: 22px; /* 少し小さくして被り余裕を作る */
+    height: 22px;
   }
 
   .site-header__search-input {

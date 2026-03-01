@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
-use App\Models\Good;
+use App\Models\Item;
 
 class Like extends Model
 {
@@ -14,7 +15,7 @@ class Like extends Model
 
     protected $fillable = [
         'user_id',
-        'good_id',
+        'item_id',
     ];
 
     public function user(): BelongsTo
@@ -22,8 +23,8 @@ class Like extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function good(): BelongsTo
+    public function item(): BelongsTo
     {
-        return $this->belongsTo(Good::class);
+        return $this->belongsTo(Item::class);
     }
 }

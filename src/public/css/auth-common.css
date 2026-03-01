@@ -7,9 +7,7 @@
     --color-danger: #ff4d4f;
     --color-link: #1a73e8;
     --color-primary: #ff5a5a;
-
     --radius-sm: 4px;
-
     --space-2: 8px;
     --space-3: 12px;
     --space-4: 16px;
@@ -18,19 +16,15 @@
     --space-8: 32px;
     --space-10: 40px;
     --space-16: 64px;
-
     --header-height: 64px;
     --container-max: 1540px;
-
     --font-title: 28px;
     --font-base: 16px;
     --font-small: 14px;
-
     --input-height: 44px;
     --button-height: 52px;
 }
 
-/* Base */
 .auth-page {
     margin: 0;
     min-height: 100vh;
@@ -41,7 +35,6 @@
         "Yu Gothic", "Meiryo", sans-serif;
 }
 
-/* Header */
 .auth-header {
     height: var(--header-height);
     background: var(--color-header);
@@ -69,7 +62,6 @@
     display: block;
 }
 
-/* Main（ここが超重要） */
 .auth-main {
     width: 100%;
     min-height: calc(100vh - var(--header-height));

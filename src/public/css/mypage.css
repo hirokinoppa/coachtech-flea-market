@@ -1,0 +1,197 @@
+.mypage{
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+/* =========================
+   Header
+========================= */
+.mypage__head{
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0 32px;
+}
+
+.mypage__avatar{
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #eee;
+}
+
+.mypage__avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mypage__avatar--placeholder{
+  width: 100%;
+  height: 100%;
+  background: #ddd;
+}
+
+.mypage__name{
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.mypage__edit{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 2px solid #ff6b6b;
+  color: #ff6b6b;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================
+   Tabs
+========================= */
+.mypage__tabs{
+  position: relative;
+  border-top: 1px solid #ddd;
+  padding-top: 18px;
+}
+
+.mypage__tabs input[type="radio"]{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mypage__tab{
+  display: inline-block;
+  padding: 14px 8px;
+  margin-right: 24px;
+  font-weight: 700;
+  color: #777;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+#tab-sell:checked + .mypage__tab,
+#tab-buy:checked + .mypage__tab{
+  color: #ff3b30;
+  border-bottom-color: #ff3b30;
+}
+
+/* Panel toggle */
+.mypage__panel{
+  display: none;
+  padding-top: 22px;
+}
+
+#tab-sell:checked ~ .mypage__panel--sell{ display: block; }
+#tab-buy:checked  ~ .mypage__panel--buy{  display: block; }
+
+/* =========================
+   Grid / Card
+========================= */
+.mypage__grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.mypage__card{
+  text-decoration: none;
+  color: inherit;
+}
+
+.mypage__thumb{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f2f2f2;
+
+  padding: 14px;
+  box-sizing: border-box;
+
+  display: grid;
+  place-items: center;
+}
+
+.mypage__thumb img{
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.mypage__thumb--placeholder{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: #444;
+  font-weight: 700;
+}
+
+.mypage__badge{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.mypage__item-name{
+  margin: 10px 0 0;
+  font-weight: 700;
+}
+
+.mypage__empty{
+  margin: 8px 0 0;
+  color: #666;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 960px){
+  .mypage__grid{ grid-template-columns: repeat(3, 1fr); }
+  .mypage__head{ grid-template-columns: 120px 1fr auto; }
+  .mypage__avatar{ width: 120px; height: 120px; }
+  .mypage__thumb{ padding: 12px; }
+}
+
+@media (max-width: 680px){
+  .mypage{ padding: 28px 0 48px; }
+
+  .mypage__head{
+    grid-template-columns: 96px 1fr;
+    grid-template-areas:
+      "avatar action"
+      "avatar info";
+  }
+
+  .mypage__avatar{ width: 96px; height: 96px; }
+  .mypage__grid{ grid-template-columns: repeat(2, 1fr); }
+  .mypage__name{ font-size: 22px; }
+  .mypage__thumb{ padding: 10px; }
+}
+
+@media (max-width: 420px){
+  .mypage__grid{ grid-template-columns: 1fr; }
+  .mypage__thumb{ padding: 10px; }
+}

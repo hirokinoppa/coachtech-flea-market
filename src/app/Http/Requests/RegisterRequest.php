@@ -6,45 +6,42 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize() : bool
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
-            'name'  => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'min:8'],
-            'password_confirmation' => ['required', 'string', 'min:8', 'same:password' ],
+            'name' => ['required', 'string', 'max:20'],
+
+            // ✅ unique を追加（会員登録では必須）
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+
+            // ✅ confirmed を使う（password_confirmation は自動的に参照される）
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'お名前を入力してください',
-            'name.string' => 'お名前は文字列で入力してください',
-            'name.max' => 'お名前は20文字以内で入力してください',
+            'name.string'   => 'お名前は文字列で入力してください',
+            'name.max'      => 'お名前は20文字以内で入力してください',
 
             'email.required' => 'メールアドレスを入力してください',
-            'email.string' => 'メールアドレスは文字列で入力してください',
-            'email.email' => 'メールアドレスはメールアドレス形式で入力してください',
+            'email.string'   => 'メールアドレスは文字列で入力してください',
+            'email.email'    => 'メールアドレスはメールアドレス形式で入力してください',
+            'email.max'      => 'メールアドレスは255文字以内で入力してください',
+            'email.unique'   => 'このメールアドレスは既に登録されています',
 
-            'password.required' => 'パスワードを入力してください',
-            'password.string' => 'パスワードは文字列で入力してください',
-            'password.min' => 'パスワードは8文字以上で入力してください',
-
-            'password_confirmation.required' => '確認用パスワードを入力してください',
-            'password_confirmation.string' => 'パスワードは文字列で入力してください',
-            'password_confirmation.min' => 'パスワード（確認）は8文字以上で入力してください',
-            'password_confirmation.same' => 'パスワードと一致しません',
+            'password.required'  => 'パスワードを入力してください',
+            'password.string'    => 'パスワードは文字列で入力してください',
+            'password.min'       => 'パスワードは8文字以上で入力してください',
+            // ✅ confirmed のメッセージキーは password.confirmed
+            'password.confirmed' => 'パスワードと一致しません',
         ];
     }
 }

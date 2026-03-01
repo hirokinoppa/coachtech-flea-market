@@ -15,22 +15,23 @@
     <form
         class="profile-form"
         method="POST"
-        action="{{ route('mypage.update') }}"
+        action="{{ route('profile.update') }}"
         enctype="multipart/form-data"
         novalidate
     >
         @csrf
 
         <div class="profile-avatar">
-            <div class="profile-avatar__preview">
+            <div class="profile-avatar__preview" id="avatarPreview">
                 @if (!empty($profile->image_path))
                     <img
+                        id="avatarImg"
                         class="profile-avatar__image"
                         src="{{ asset('storage/' . $profile->image_path) }}"
                         alt="プロフィール画像"
                     >
                 @else
-                    <div class="profile-avatar__placeholder" aria-hidden="true"></div>
+                    <div class="profile-avatar__placeholder" id="avatarPlaceholder" aria-hidden="true"></div>
                 @endif
             </div>
 
@@ -58,7 +59,7 @@
                 type="text"
                 name="name"
                 id="name"
-                value="{{ old('name', $profile->name) }}"
+                value="{{ old('name', $profile->name ?? '') }}"
                 required
             >
             @error('name')
@@ -73,7 +74,7 @@
                 type="text"
                 name="postal_code"
                 id="postal_code"
-                value="{{ old('postal_code', $profile->postal_code) }}"
+                value="{{ old('postal_code', $profile->postal_code ?? '') }}"
                 placeholder="123-4567"
                 required
             >
@@ -89,7 +90,7 @@
                 type="text"
                 name="address"
                 id="address"
-                value="{{ old('address', $profile->address) }}"
+                value="{{ old('address', $profile->address ?? '') }}"
                 required
             >
             @error('address')
@@ -104,7 +105,7 @@
                 type="text"
                 name="building"
                 id="building"
-                value="{{ old('building', $profile->building) }}"
+                value="{{ old('building', $profile->building ?? '') }}"
             >
             @error('building')
                 <p class="form-field__error">{{ $message }}</p>
@@ -113,5 +114,29 @@
 
         <button class="profile-form__submit" type="submit">更新する</button>
     </form>
+
+    <script>
+        document.getElementById('image')?.addEventListener('change', function (e) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) return;
+
+        const url = URL.createObjectURL(file);
+
+        let img = document.getElementById('avatarImg');
+        if (!img) {
+            img = document.createElement('img');
+            img.id = 'avatarImg';
+            img.className = 'profile-avatar__image';
+            img.alt = 'プロフィール画像';
+            document.getElementById('avatarPreview').innerHTML = '';
+            document.getElementById('avatarPreview').appendChild(img);
+        }
+
+        img.src = url;
+        });
+    </script>
+
 </section>
 @endsection

@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use App\Models\Order;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -39,6 +41,24 @@ class ProfileController extends Controller
         $profile->user_id = Auth::id();
         $profile->save();
 
-        return redirect()->route('item.index');
+        return redirect()->route('items.index');
+    }
+
+    public function mypage(): View
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        $profile = $user->profile;
+
+        $sellItems = $user->items()
+            ->latest()
+            ->get();
+
+        $buyOrders = Order::with('item')
+            ->where('buyer_id', $user->id)
+            ->orderByDesc('purchased_at')
+            ->get();
+
+        return view('auth.mypage', compact('user', 'profile', 'sellItems', 'buyOrders'));
     }
 }

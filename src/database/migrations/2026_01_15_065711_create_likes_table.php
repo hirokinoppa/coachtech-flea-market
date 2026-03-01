@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateLikesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('likes', function (Blueprint $table) {
@@ -19,20 +14,15 @@ class CreateLikesTable extends Migration
             ->constrained()
             ->cascadeOnDelete();
 
-            $table->foreignId('good_id')
-            ->constrained('goods')
+            $table->foreignId('item_id')
+            ->constrained('items')
             ->cascadeOnDelete();
 
             $table->timestamps();
-            $table->unique(['user_id', 'good_id']);
+            $table->unique(['user_id', 'item_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('likes');

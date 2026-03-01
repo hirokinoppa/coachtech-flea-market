@@ -1,6 +1,3 @@
-/* =========================
-Login Page
-========================= */
 
 .login-page .login-card {
     width: min(680px, 100%);
@@ -15,7 +12,6 @@ Login Page
     letter-spacing: 0.04em;
 }
 
-/* Form */
 .login-form {
     width: 100%;
     display: grid;

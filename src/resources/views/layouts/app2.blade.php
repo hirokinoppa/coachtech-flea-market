@@ -25,13 +25,17 @@
                 >
             </a>
 
-            <form class="site-header__search" method="GET" action="{{ url('/') }}">
-                <label class="site-header__search-label" for="keyword">検索</label>
+            <form class="site-header__search" method="GET" action="{{ route('items.index') }}">
+                @if(request('tab'))
+                    <input type="hidden" name="tab" value="{{ request('tab') }}">
+                @endif
+
+                <label class="site-header__search-label" for="keyword">商品検索</label>
                 <input
+                    id="keyword"
                     class="site-header__search-input"
                     type="text"
                     name="keyword"
-                    id="keyword"
                     value="{{ request('keyword') }}"
                     placeholder="なにをお探しですか？"
                 >
@@ -44,8 +48,8 @@
                         <button class="site-header__nav-link" type="submit">ログアウト</button>
                     </form>
 
-                    <a class="site-header__nav-link" href="{{ route('profile.edit') }}">マイページ</a>
-                    <a class="site-header__nav-button" href="{{ url('/goods/create') }}">出品</a>
+                    <a class="site-header__nav-link" href="{{ route('mypage') }}">マイページ</a>
+                    <a class="site-header__nav-button" href="{{ route('sell.create') }}">出品</a>
                 @endauth
 
                 @guest

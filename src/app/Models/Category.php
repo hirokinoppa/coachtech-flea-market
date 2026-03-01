@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Models\Good;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Item;
 class Category extends Model
 {
     use HasFactory;
@@ -15,8 +14,8 @@ class Category extends Model
         'name',
     ];
 
-    public function goods(): HasMany
+    public function items(): BelongsToMany
     {
-        return $this->hasMany(Good::class);
+        return $this->belongsToMany(Item::class, 'category_item');
     }
 }

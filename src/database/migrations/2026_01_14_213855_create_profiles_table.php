@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProfilesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('profiles', function (Blueprint $table) {
@@ -21,6 +16,7 @@ class CreateProfilesTable extends Migration
             ->unique();
 
             $table->string('name', 255);
+            $table->string('image_path', 255)->nullable();
             $table->string('postal_code', 10)->nullable();
             $table->string('address', 255)->nullable();
             $table->string('building', 255)->nullable();
@@ -28,11 +24,6 @@ class CreateProfilesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('profiles');
