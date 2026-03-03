@@ -16,9 +16,19 @@
 ## 環境構築
 
 ### Dockerビルド
-git clone git@github.com:hirokinoppa/coachtech-flea-market.git
+
+,,,
+git clone git@github.com:hirokinoppa/
+,,,
+,,,
+coachtech-flea-market.git
+,,,
+,,,
 cd coachtech-flea-market
+,,,
+,,,
 docker-compose up -d --build
+,,,
 
 ---
 
