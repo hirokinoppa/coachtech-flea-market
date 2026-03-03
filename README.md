@@ -3,7 +3,7 @@
 ## アプリ概要
 ユーザーが商品を出品し、他のユーザーが商品を購入できるフリマサービスを想定しています。
 
-ユーザー登録・ログイン・商品出品・商品購入・コメント・いいね機能など、  
+ユーザー登録・ログイン・商品出品・商品購入・コメント・いいね機能など、
 フリマアプリの基本機能をLaravelで実装しています。
 
 また、実際のサービスに近づけるために以下の機能も実装しています。
@@ -17,29 +17,107 @@
 
 ### Dockerビルド
 
-,,,
-git clone git@github.com:hirokinoppa/
-,,,
-,,,
-coachtech-flea-market.git
-,,,
-,,,
+1. Docker clone
+```sh
+git clone git@github.com:hirokinoppa/coachtech-flea-market.git
+
+```
+
+2. Change Directory
+```sh
 cd coachtech-flea-market
-,,,
-,,,
+```
+
+3. Docker Build
+```sh
 docker-compose up -d --build
-,,,
+```
 
 ---
 
 ### Laravel環境構築
+
+1. PHPコンテナ内にログイン
+```sh
 docker compose exec php bash
+```
+
+2. composerインストール
+```sh
 composer install
+```
+
+3. .envファイルの作成
+```sh
 cp .env.example .env
+```
+
+4.  storageフォルダの作成
+```sh
+mkdir -p storage/logs
+```
+```sh
+chmod -R 775 storage bootstrap/cache
+```
+```sh
+chown -R www-data:www-data storage bootstrap/cache
+```
+
+5. envファイルの編集(Part1)
+ファイル内の一部を書き換えてください。
+```sh
+//前略
+
+DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
++ DB_HOST=mysql
+DB_PORT=3306
+- DB_DATABASE=laravel
+- DB_USERNAME=root
+- DB_PASSWORD=
++ DB_DATABASE=laravel_db
++ DB_USERNAME=laravel_user
++ DB_PASSWORD=laravel_pass
+
+//後略
+```
+6. .envファイルの編集(Part2)
+ファイル内の一部を書き換えてください。
+```sh
+//前略
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=no-reply@example.test
+MAIL_FROM_NAME="${APP_NAME}"
+MAIL_EHLO_DOMAIN=localhost
+
+//後略
+```
+
+7. キーの作成
+```sh
 php artisan key:generate
+```
+
+8. マイグレーションの読み込み
+```sh
 php artisan migrate
+```
+
+9. シーダーファイルの読み込み
+```sh
 php artisan db:seed
+```
+
+10. ストレージファイルをリンクさせる
+```sh
 php artisan storage:link
+```
 
 ---
 
@@ -102,6 +180,13 @@ Stripe Checkout を利用して決済を行います。
 
 購入ボタンを押すとStripeの決済画面に遷移し、決済完了後に購入処理が実行されます。
 
+---
+
+## こだわりポイント(コーチの許可了承済み)
+- 商品がSold outとなった場合にSold outと表示され画像が白黒になります
+- 出品画面で画像を選択すると画像がセンターに表示され、画像を選択するのボタンが右に移動します
+
+---
 
 ## 使用技術（実行環境）
 - PHP 8.2.11
