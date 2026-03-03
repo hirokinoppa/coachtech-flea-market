@@ -16,19 +16,20 @@
 ## 環境構築
 
 ### Dockerビルド
-- git clone git@github.com:hirokinoppa/coachtech-flea-market.git
-- cd coachtech-flea-market
-- docker-compose up -d --build
+git clone git@github.com:hirokinoppa/coachtech-flea-market.git
+cd coachtech-flea-market
+docker-compose up -d --build
 
 ---
 
 ### Laravel環境構築
-- docker compose exec php bash
-- composer install
-- cp .env.example .env
-- php artisan key:generate
-- php artisan migrate
-- php artisan db:seed
+docker compose exec php bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
 
 ---
 
