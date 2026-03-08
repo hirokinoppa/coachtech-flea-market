@@ -210,8 +210,64 @@ Stripe Checkout を利用して決済を行います。
 
 ## テスト
  PHPUnitを使用して機能テストを実装しています。
-### テスト実行
-- php artisan test
+ テストは本番データベースとは別の **テスト用データベース（laravel_test）** を使用して実行されます。
+
+ これにより、実際のデータを破壊することなく安全にテストを行うことができます。
+### テスト用データベースの作成
+
+1. MySQLコンテナにログインする
+```sh
+docker compose exec mysql bash
+```
+
+2. MySQLにrootユーザーでログインする
+```sh
+mysql -u root -p
+```
+
+3. テスト用データベースを作成する
+```sh
+CREATE DATABASE laravel_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+GRANT ALL PRIVILEGES ON laravel_test.* TO 'laravel_user'@'%';
+FLUSH PRIVILEGES;
+```
+
+4. .env.testingの設定
+```sh
+APP_ENV=testing
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_test
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+
+CACHE_DRIVER=array
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=array
+MAIL_MAILER=array
+```
+
+---
+###　テスト実行
+
+1. PHPコンテナにログインする
+```sh
+docker compose exec php bash
+```
+
+2. テスト用DBにマイグレーションを実行する
+```sh
+php artisan migrate --env=testing
+```
+
+3. テストを実行
+```sh
+php artisan test
+```
+
+---
 ## 主なテスト
 - ユーザー登録
 - ログイン
