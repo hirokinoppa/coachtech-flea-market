@@ -66,7 +66,6 @@ chown -R www-data:www-data storage bootstrap/cache
 5. envファイルの編集(Part1)
 ファイル内の一部を書き換えてください。
 ```sh
-//前略
 
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -75,12 +74,10 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
-//後略
 ```
 6. .envファイルの編集(Part2)
 ファイル内の一部を書き換えてください。
 ```sh
-//前略
 
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
@@ -92,7 +89,6 @@ MAIL_FROM_ADDRESS=no-reply@example.test
 MAIL_FROM_NAME="${APP_NAME}"
 MAIL_EHLO_DOMAIN=localhost
 
-//後略
 ```
 
 7. キーの作成
